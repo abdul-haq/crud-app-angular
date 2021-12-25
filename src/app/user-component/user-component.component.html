@@ -1,0 +1,90 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container">
+    <h1>User CRUD</h1>
+    <div class="d-flex">
+      <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Add User
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputName1" class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="addUserData.user.name" [ngModelOptions]="{standalone: true}"/>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              aria-describedby="emailHelp"
+              [(ngModel)]="addUserData.user.email" [ngModelOptions]="{standalone: true}"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPhone1" class="form-label"
+              >Phone Number</label
+            >
+            <input type="text" class="form-control"  [(ngModel)]="addUserData.user.phoneNo" [ngModelOptions]="{standalone: true}"/>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="addUser()" data-bs-dismiss="modal">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <table class="table table-striped my-5">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">User ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userData">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phoneNo}}</td>
+        <td>
+          <button class="btn btn-info text-light" (click)="editUser(user.id)"  data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button
+          ><button class="btn btn-danger mx-3 text-light" (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
