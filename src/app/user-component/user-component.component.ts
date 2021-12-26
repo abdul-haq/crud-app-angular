@@ -11,6 +11,7 @@ import { ApiService } from '../shared/api.service';
 export class UserComponentComponent implements OnInit {
 
   userData:any;
+  editid:number=0;
   public addUserData: UserDTO= new UserDTO();
   constructor(public httpService:ApiService) { }
 
@@ -30,12 +31,14 @@ export class UserComponentComponent implements OnInit {
     var url=`user/${id}`;
     this.httpService.get(url).subscribe((res:any)=>{
       this.addUserData.user=res;
+      this.editid=res.id;
     })
   }
-  editUser(id:number){
-    
+
+  editUser(id:number){  
     this.getUserDatabyId(id);
   }
+
   deleteUser(id:number)
   {
     var url=`user/${id}`;
@@ -50,11 +53,23 @@ export class UserComponentComponent implements OnInit {
     }
   }
   
-
+  addUserBtn()
+  {
+    this.addUserData=new UserDTO();
+    this.editid=0;
+  }
   addUser()
   {
     var url='user';
     this.httpService.post(url,this.addUserData.user).subscribe((res:any)=>{
+      this.getUserData();
+    })
+  }
+
+  updateUser()
+  {
+    var url=`user/${this.editid}`;
+    this.httpService.update(url,this.addUserData.user).subscribe((res:any)=>{
       this.getUserData();
     })
   }
